@@ -17,9 +17,8 @@ use serde::{Deserialize, Serialize};
 use serde_json;
 
 use md5::{Digest as Md5Digest, Md5};
-use sha1::{Digest as Sha1Digest, Sha1};
-use sha2::{Digest as Sha2Digest, Sha256, Sha512};
-use sha3::{Digest as Sha3Digest};
+use sha1::{Sha1};
+use sha2::{Sha256, Sha512};
 
 #[derive(Debug, Deserialize, Serialize)]
 struct Config {
@@ -56,7 +55,6 @@ fn main() -> io::Result<()> {
     };
 
     let mut files_to_remove = Vec::new();
-    let mut latest_file = None;
 
     for entry in fs::read_dir(target_directory)? {
         let entry = entry?;
@@ -70,7 +68,6 @@ fn main() -> io::Result<()> {
 
                 if current_metadata.modified()? > existing_metadata.modified()? {
                     files_to_remove.push(existing_file.clone());
-                    latest_file = Some(path.to_str().unwrap().to_string());
                 } else {
                     files_to_remove.push(path.to_str().unwrap().to_string());
                 }
