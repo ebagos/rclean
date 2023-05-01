@@ -19,7 +19,7 @@ use serde_json;
 use md5::{Digest as Md5Digest, Md5};
 use sha1::{Digest as Sha1Digest, Sha1};
 use sha2::{Digest as Sha2Digest, Sha256, Sha512};
-use sha3::{Digest as Sha3Digest, Sha3_512};
+use sha3::{Digest as Sha3Digest};
 
 #[derive(Debug, Deserialize, Serialize)]
 struct Config {
